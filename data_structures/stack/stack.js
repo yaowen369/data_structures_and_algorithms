@@ -9,14 +9,15 @@
  * @param base  不能大于16，也就是说，最多是16进制
  */
 function baseConverter(decNumber, base) {
-    var mStack = new stack();
-    var digits = "01234567890abcdef";
+    var mStack = new Stack();
+    var digits = "0123456789ABCDEF";
     var rem = 0;
     var resultString = "";
 
     while (decNumber > 0){
-        mStack.push(decNumber%base);
-        decNumber = decNumber/base;
+        rem = Math.floor(decNumber%base);
+        mStack.push(rem);
+        decNumber = Math.floor(decNumber/base);
     }
 
     while (!mStack.isEmpty()){
@@ -28,7 +29,7 @@ function baseConverter(decNumber, base) {
 }
 
 
-function stack() {
+function Stack() {
 
     var item = [];
 
@@ -43,15 +44,15 @@ function stack() {
 
     //查看 栈顶元素
     this.peek = function () {
-        if (item.size() === 0){
+        if (item.length === 0){
             return null;
         }else {
-            return item[item.size() - 1];
+            return item[item.length - 1];
         }
     };
 
     this.isEmpty = function () {
-        return item.size()===0;
+        return item.length===0;
     };
 
     this.clear = function () {
@@ -59,10 +60,10 @@ function stack() {
     };
 
     this.size = function () {
-      return item.size();
+      return item.length;
     };
 
     this.print = function () {
-        console.log("size = " + item.size() + "\t " + item.toString());
+        console.log("size = " + item.length + "\t " + item.toString());
     }
 }
