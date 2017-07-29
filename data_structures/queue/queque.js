@@ -3,7 +3,7 @@
  */
 
 
-function Queue() {
+function YwQueue() {
     var item = [];
 
     //向队列末尾添加一个或多个新的数据项
