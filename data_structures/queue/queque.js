@@ -3,13 +3,35 @@
  */
 
 
-function YwQueue() {
+//击鼓传花
+function hotpotato(nameList, randNum) {
+    var queue = new Queue();
+
+    for (let i=0; i<nameList.length; i++){
+        queue.enqueue(nameList[i]);
+    }
+
+    while (queue.size() > 1){
+        for (let i=0; i<randNum; i++) {
+            queue.enqueue(queue.dequeue());
+        }
+
+        var loser = queue.dequeue();
+        console.log(loser + "  退出了");
+    }
+
+    console.log(queue.dequeue() + " 成了最后的赢家");
+}
+
+function Queue() {
     var item = [];
 
     //向队列末尾添加一个或多个新的数据项
     //Todo 这个地方其实不应该这样，因为目前只能接收传入的多个参数的第一个，未来要做修改
     this.enqueue = function (elements) {
-        item.push(elements);
+        for (let i=0; i<arguments.length; i++){
+            item.push(arguments[i]);
+        }
     };
 
     //返回并删除队列的第一项
