@@ -26,7 +26,8 @@ function Dictionary() {
     //查找健值对应的元素并返回,不存在则返回null
     this.get = function (key) {
         var value = items[key];
-        if (typeof value === "underfined"){
+        //  null == undefined is true
+        if (value == null){
             return null;
         }else {
             return value;
@@ -41,21 +42,26 @@ function Dictionary() {
     //返回字典中所包含的元素的数量， 等同于数组的length
     this.size = function () {
         //不知道这种方法对不对
-        return items.keys().length;
+        return Object.keys(items).length;
     };
 
     //将字典所包含的所有键名 以 数组形式返回
     this.keys = function () {
-        return items.keys();
+        return Object.keys(items);
     };
 
     // 将字典中所包含的值 以数组形式返回 
     this.values = function () {
-        return items.values();
+        return Object.values(items);
     };
 
     //debug 信息，将 字典里的 键值对，依次打印出来
     this.debugPrint = function () {
-        
+        var totalStr = "";
+        for (value in items){
+            totalStr += value + " : " + items[value] + "\n";
+        }
+
+        console.log(totalStr);
     }
 }
