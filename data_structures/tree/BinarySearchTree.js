@@ -73,20 +73,54 @@ function BinarySearchTree() {
     };
 
     //通过中序遍历方式 遍历所有节点
-    this.inOrderTraverse = function () {
+    //先访问左边节点，再访问父节点最后访问右边节点
+    //@params callback 回调参数
+    this.inOrderTraverse = function (callback) {
+        inOrderTraverseNode(root, callback);
 
+    };
 
+    var inOrderTraverseNode = function(node, callback){
+        if (node != null){
+            inOrderTraverseNode(node.left, callback);
+            callback(node.key);
+            inOrderTraverseNode(node.right, callback);
+        }
     };
 
     //通过先序遍历方式 遍历所有节点
-    this.preOrderTraverse = function () {
+    //先访问父节点再访问左边节点，最后访问右边节点
+    //@params callback 回调参数
+    this.preOrderTraverse = function (callback) {
+        preOrderTraverseNode(root, callback);
+    };
 
+    var preOrderTraverseNode = function (node, callback) {
+        if (node != null){
+            callback(node.key);
+            preOrderTraverseNode(node.left, callback);
+            preOrderTraverseNode(node.right, callback);
+        }
     };
 
     //通过后序遍历方式遍历所有节点
-    this.postOrderTraverse = function () {
-
+    //先访问左边节点，再访问右边节点，最后访问父节点
+    //@params callback 回调参数
+    this.postOrderTraverse = function (callback) {
+        postOrderTraverseNode(root, callback);
     };
+
+    var postOrderTraverseNode = function(node, callback){
+        if (node != null){
+            preOrderTraverseNode(node.left, callback);
+            postOrderTraverseNode(node.right, callback);
+            callback(node.key);
+        }
+    };
+
+    var printKey = function (key) {
+        console.log(key);
+    }
 
     //返回树中最小的值/键, 或则null，（root为null的情况下）
     this.min = function () {
