@@ -166,6 +166,49 @@ function BinarySearchTree() {
 
     //从树中 移除某个键
     this.remove = function (key) {
-
+        root = removeNode(root, key);
     };
+
+    var removeNode = function (parentNode , key) {
+        if (parentNode === null){
+            return null;
+        }
+
+        if (key < parentNode.key){
+            //在左边，就是 值比较小
+            var node  = removeNode(parentNode.left, key);
+            return node;
+        }else if (key > parentNode.key){
+            //在右边，就是值比较大
+            var node = removeNode(parentNode.right, key);
+            return node;
+        }else {
+            //相等关系，需要删除的 就是这个节点
+            //分为三种情况
+
+            //该节点 没有child 节点，光秃秃的一个
+            if (parentNode.left===null && parentNode.right===null){
+                parentNode.key = null;
+                return null;
+            }
+
+            //该 节点只有一个 child节点
+            if (parentNode.left!=null && parentNode.right===null){
+                parentNode = parentNode.left;
+                return parentNode;
+            }else if (parentNode.left===null && parentNode.right!==null){
+                parentNode = parentNode.right;
+                return parentNode;
+            }
+
+            //该节点存在两个child节点
+            if (parentNode.left!==null && parentNode.right!==null){
+                var minInRight = minInTree(parentNode.right);
+                parentNode.key = minInRight;
+                parentNode.right = removeNode(parentNode.right, minInRight);
+                return parentNode;
+            }
+        }
+
+    }//end of "removeNode"
 }
