@@ -112,15 +112,15 @@ function BinarySearchTree() {
 
     var postOrderTraverseNode = function(node, callback){
         if (node != null){
-            preOrderTraverseNode(node.left, callback);
+            postOrderTraverseNode(node.left, callback);
             postOrderTraverseNode(node.right, callback);
             callback(node.key);
         }
     };
 
-    var printKey = function (key) {
+    this.printKey = function (key) {
         console.log(key);
-    }
+    };
 
     //返回树中最小的值/键, 或则null，（root为null的情况下）
     this.min = function () {
@@ -151,7 +151,7 @@ function BinarySearchTree() {
             if (root.right == null){
                 return root.key;
             }else {
-                maxInTree(root.right);
+                return maxInTree(root.right);
             }
         }
     };
@@ -160,7 +160,7 @@ function BinarySearchTree() {
         if (parentNode.right == null){
             return parentNode.key;
         }else {
-            maxInTree(parentNode.right);
+            return maxInTree(parentNode.right);
         }
     };
 
@@ -176,20 +176,20 @@ function BinarySearchTree() {
 
         if (key < parentNode.key){
             //在左边，就是 值比较小
-            var node  = removeNode(parentNode.left, key);
-            return node;
+            parentNode.left = removeNode(parentNode.left, key);
+            return parentNode;
         }else if (key > parentNode.key){
             //在右边，就是值比较大
-            var node = removeNode(parentNode.right, key);
-            return node;
+            parentNode.right = removeNode(parentNode.right, key);
+            return parentNode;
         }else {
             //相等关系，需要删除的 就是这个节点
             //分为三种情况
 
             //该节点 没有child 节点，光秃秃的一个
             if (parentNode.left===null && parentNode.right===null){
-                parentNode.key = null;
-                return null;
+                parentNode = null;
+                return parentNode;
             }
 
             //该 节点只有一个 child节点
@@ -202,13 +202,19 @@ function BinarySearchTree() {
             }
 
             //该节点存在两个child节点
-            if (parentNode.left!==null && parentNode.right!==null){
-                var minInRight = minInTree(parentNode.right);
-                parentNode.key = minInRight;
-                parentNode.right = removeNode(parentNode.right, minInRight);
-                return parentNode;
-            }
+            var minInRight = findMinNode(parentNode.right);
+            parentNode.key = minInRight.key;
+            parentNode.right = removeNode(parentNode.right, minInRight.key);
+            return parentNode;
         }
 
-    }//end of "removeNode"
+    };//end of "removeNode"
+
+    var findMinNode = function (parentNode) {
+        if (parentNode.left == null){
+            return parentNode;
+        }else {
+            return findMinNode(parentNode.left);
+        }
+    };
 }
