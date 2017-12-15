@@ -1,6 +1,9 @@
 /**
- * Created by yw on 17/11/5.
+ * Created by yw on 17/12/15.
+ *
+ * 测试选择排序
  */
+
 
 
 /**
@@ -91,7 +94,7 @@ function SortUtils() {
     };
 
 
-    //测试list的排序结果是否正确，（从大到下 排序）
+    //试list的排序结果是否正确，（从大到下 排序）
     this.isSortRightFromBigToSmall = function(list) {
         var isRight = true;
 
@@ -103,13 +106,12 @@ function SortUtils() {
         }
 
         if (isRight){
-            console.log("\t\t 正确 -> 这这个list是  从大到小 排列的");
+            console.log("\t\t 正确 -> 这个list是  从大到小 排列的");
         }else {
             console.warn("\t\t 错误 -> 这个list  不是从大到小 排列的" );
         }
     };
 }
-
 
 
 function SortTest() {
@@ -132,5 +134,26 @@ function SortTest() {
 
         }
     };
-}
 
+
+    var selectionSort = function (list) {
+        var length = list.length;
+        var indexMin = 0;
+        var tmp;
+        for (let i=0; i<length-1; i++){
+            indexMin = i;
+            for (let j=indexMin+1; j<length; j++){
+                if (list[indexMin] > list[j]){
+                    indexMin = j;
+                }
+            }
+
+            if (i != indexMin){
+                tmp = list[i];
+                list[i] = list[indexMin];
+                list[indexMin] = tmp;
+            }
+        }
+    };
+
+}
