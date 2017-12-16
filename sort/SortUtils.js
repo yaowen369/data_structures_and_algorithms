@@ -103,7 +103,7 @@ function SortUtils() {
         }
 
         if (isRight){
-            console.log("\t\t 正确 -> 这这个list是  从大到小 排列的");
+            console.log("\t\t 正确 -> 这个list是  从大到小 排列的");
         }else {
             console.warn("\t\t 错误 -> 这个list  不是从大到小 排列的" );
         }
@@ -124,8 +124,9 @@ function SortTest() {
 
             console.info("第" + i + "次测试,  数组长度="  + arrSize);
             console.log("\t 排序前" + arrList);
+
             //Todo 这里填入你要排序的算法
-            selectionSort(arrList);
+
             console.log("\t 排序后" + arrList);
 
             mUtils.isSortRightFromSmallToBig(arrList);
