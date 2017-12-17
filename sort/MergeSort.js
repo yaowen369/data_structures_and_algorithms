@@ -1,7 +1,8 @@
 /**
- * Created by yw on 17/8/15.
+ * Created by yw on 17/12/17.
+ *
+ * 归并排序
  */
-
 
 
 /**
@@ -125,8 +126,9 @@ function SortTest() {
 
             console.info("第" + i + "次测试,  数组长度="  + arrSize);
             console.log("\t 排序前" + arrList);
+
             //Todo 这里填入你要排序的算法
-            insertSort(arrList);
+            arrList = mergeSort(arrList);
 
             console.log("\t 排序后" + arrList);
 
@@ -136,25 +138,46 @@ function SortTest() {
     };
 
 
-    /**
-     * 插入排序
-     * @param list
-     */
-    var insertSort = function (list) {
+    var mergeSort = function (list) {
+        return mergeSortRec(list);
+    };
+
+    var mergeSortRec = function (list) {
         var length = list.length;
-        var tmpVal;
-        var j;
-
-        for (let i=1; i<length; i++){
-            j = i;
-            tmpVal = list[i];
-            while (j>0 && list[j-1]>tmpVal){
-                list[j] = list[j-1];
-                j--;
-            }
-
-            list[j] = tmpVal;
+        if (length === 1){
+            return list;
         }
+
+        var middle = Math.floor(length/2);
+        var leftList = list.slice(0, middle);
+        var rightList = list.slice(middle, length);
+
+        return merge(mergeSortRec(leftList), mergeSortRec(rightList))
+    };
+
+    var merge = function (leftList, rightList) {
+        var result = [];
+        var iL=0;
+        var iR = 0;
+
+        while (iL<leftList.length && iR<rightList.length){
+            if (leftList[iL] > rightList[iR]){
+                result.push(rightList[iR++]);
+            } else {
+                result.push(leftList[iL++]);
+            }
+        }
+
+        while (iL < leftList.length){
+            result.push(leftList[iL++]);
+        }
+
+        while (iR < rightList.length){
+            result.push(rightList[iR++]);
+        }
+
+        return result;
 
     };
 }
+
