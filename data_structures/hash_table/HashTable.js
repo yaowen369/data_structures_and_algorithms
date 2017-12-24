@@ -7,6 +7,23 @@
  * 散列表
  *
  *   采用 第二种  线性探测的方式来解决 冲突 p87
+ *
+ *   测试数据:
+ *
+ *   19 - Gandalf
+ 29 - John
+ 16 - Tyrion
+ 16 - Aaron
+ 13 - Donnie
+ 13 - Ana
+
+
+ 5 - Jonathan
+ 5 - Jamie
+ 5 - Sue
+ 32 - Mindy
+ 32 - Paul
+ 10 – Nathan
  */
 function HashTable() {
     var table = [];
@@ -125,7 +142,6 @@ function HashTable() {
                     if (table[backIndex] !== undefined) {
                         backIndexHashCode = loseLoseHashCode(table[backIndex].key);
                     }
-
                 }
 
                 table[backIndex-1] = undefined;

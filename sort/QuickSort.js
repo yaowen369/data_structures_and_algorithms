@@ -1,6 +1,9 @@
 /**
- * Created by yw on 17/11/5.
+ * Created by Administrator on 2017/12/24.
+ *
+ * 快排  P137   10.1.5章节
  */
+
 
 
 /**
@@ -126,15 +129,64 @@ function SortTest() {
             console.log("\t 排序前" + arrList);
 
             //Todo 这里填入你要排序的算法
-
+            quickSort(arrList);
             console.log("\t 排序后" + arrList);
 
             mUtils.isSortRightFromSmallToBig(arrList);
 
         }
     };
-    
-    
 
+
+    var quickSort = function (arr) {
+        quick(arr, 0, arr.length-1);
+    };
+
+
+    var quick = function (arr, left, right) {
+        if (arr.length > 1){
+            var index = partition(arr, left, right);
+
+            if (left < index-1){
+                quick(arr, left, index-1);
+            }
+
+            if (index < right){
+                quick(arr, index, right);
+            }
+        }
+    };
+
+    var partition = function (arr, left, right) {
+        var mid = left + Math.floor((right-left)/2);
+        var pivot = arr[mid];
+        var i = left;
+        var j = right;
+
+        while (i <= j){
+            while (arr[i] < pivot){
+                i++;
+            }
+
+            while (arr[j] > pivot){
+                j--;
+            }
+
+            if (i <= j) {
+                swap(arr, i, j);
+                i++;
+                j--;
+            }
+        }
+
+        return i;
+    };
+
+
+    var swap = function (arr, prev, forward) {
+        var tmp = arr[prev];
+        arr[prev] = arr[forward];
+        arr[forward] = tmp;
+    };
 }
 
